@@ -190,13 +190,20 @@ sf::Color SelectColor(double X)
     else return sf::Color::Yellow;
 }
 
-int main()
+int main(int argc, char **argv)
 {
+    double R = 0.6;
+    if(argc >= 2)
+    {
+        R = atof(argv[1]);
+    }
+
+    std::cout << "R: " << R << std::endl;
+
     int n = 8;
     int len = pow(2, n) + 1;
     int lenVect = pow(2, n + 1) + 1;
     double block_size = DSET_WIDTH / len;
-    double R = 0.6;
     std::vector<std::vector<double>> _array(lenVect, std::vector<double>(lenVect, 0.0));
     std::cout << "установлена размерность: " << len << std::endl;
     FullingMap(_array, len, R);
@@ -279,7 +286,7 @@ int main()
                                 _array[0][Y + lenVect / 2] = RandM.Random(RMIN, RMAX);
 
                                 proxod(_array, len, R, lenVect/4, Y + lenVect / 4);
-                                Scale(_array, len, len + lenVect/4 - 1, lenVect/4);
+                                Scale(_array, len, len + lenVect/4 - 1, lenVect/4, R);
                                 /*if (X == 0)
                                     X += lenVect / 4;*/
                                 X = lenVect / 2;
@@ -322,7 +329,7 @@ int main()
                                 _array[size - 1][Y + lenVect / 2] = RandM.Random(0, max);
 
                                 proxod(_array, len, R, X + len - 1 + lenVect / 4, Y + lenVect / 4);
-                                Scale(_array, len, X + len - 1 + lenVect / 4, lenVect/4);
+                                Scale(_array, len, X + len - 1 + lenVect / 4, lenVect/4, R);
                                 if (X == 0)
                                     X += lenVect / 4;
                             }
